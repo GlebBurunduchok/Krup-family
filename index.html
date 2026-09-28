@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8"><title>Terry</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5f7f1"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Terry">
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg"><link rel="apple-touch-icon" href="apple-touch-icon.png"><script src="config.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap">
+<style>
+:root{--bg:#f5f7f1;--card:#fff;--ink:#17301f;--mute:#6b7d70;--line:#e1e7dc;--g:#1f4a38;--gi:#fff;--lime:#d7ef8a;--soft:#eaf0e3;--okbg:#e6f2d6;--bad:#f6e4e0;--badi:#8a2d1c;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111a15;--card:#1a2620;--ink:#eaf1e6;--mute:#93a598;--line:#2a3a31;--g:#2d6a50;--soft:#22322a;--okbg:#2a3d22;--bad:#3d211b;--badi:#f0b3a5}}
+:root[data-theme="dark"]{--bg:#111a15;--card:#1a2620;--ink:#eaf1e6;--mute:#93a598;--line:#2a3a31;--g:#2d6a50;--soft:#22322a;--okbg:#2a3d22;--bad:#3d211b;--badi:#f0b3a5}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 Manrope,system-ui,sans-serif}
+main{max-width:920px;margin:0 auto;padding:16px 16px 40px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.logo{display:flex;align-items:center;gap:10px}.logo i{width:42px;height:42px;border-radius:12px;background:var(--g);display:grid;place-items:center}
+.logo b{font-size:28px;font-weight:800;letter-spacing:-1px}.logo b span{color:#7fa33a}
+.chip{background:var(--soft);border-radius:12px;padding:8px 12px;font-weight:700;font-size:14px}
+h1{font-size:30px;font-weight:800;letter-spacing:-.8px;margin:20px 0 4px}h2{font-size:22px;font-weight:800;margin:0 0 4px}
+.eyebrow{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mute);font-weight:700}
+.tabs{display:flex;gap:22px;border-bottom:1px solid var(--line);margin:16px 0}
+.tabs button{background:none;border:0;padding:10px 0;font:inherit;font-weight:700;color:var(--mute);border-bottom:3px solid transparent;margin-bottom:-1px;cursor:pointer}
+.tabs button.on{color:var(--ink);border-color:var(--g)}
+.grid{display:grid;gap:16px}@media(min-width:760px){.grid.two{grid-template-columns:1.3fr 1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line)}.row:last-child{border:0}
+.row.done{background:var(--okbg)}.time{font-size:22px;font-weight:800}.sm{font-size:14px;color:var(--mute)}.row.done .sm{color:var(--g);font-weight:700}
+.btn{font:inherit;font-weight:800;border:0;border-radius:12px;padding:12px 16px;background:var(--g);color:var(--gi);cursor:pointer;white-space:nowrap}
+.btn.soft{background:var(--soft);color:var(--ink)}.btn.link{background:none;color:var(--mute);padding:6px;text-decoration:underline;font-weight:600}
+.hero{background:var(--g);color:#fff;padding:22px;display:flex;flex-direction:column;gap:14px}
+.hero .paw{width:72px;height:72px;border-radius:20px;background:rgba(255,255,255,.12);display:grid;place-items:center}
+.hero h2{font-size:34px}.hero hr{border:0;border-top:1px solid rgba(255,255,255,.2);width:100%;margin:2px 0}
+.hero .l{display:flex;justify-content:space-between;font-size:14px;opacity:.9}
+.tag{background:var(--lime);color:#17301f;border-radius:99px;padding:6px 12px;font-size:13px;font-weight:800;display:inline-block}
+.banner{background:var(--bad);color:var(--badi);border-radius:14px;padding:14px 16px;margin:12px 0;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.names{display:grid;gap:10px;padding:16px}.names button{display:flex;justify-content:space-between;align-items:center;font:inherit;font-weight:800;font-size:18px;padding:16px;border-radius:14px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.names button[disabled]{opacity:.5;cursor:default}
+input{font:inherit;padding:12px;border:1.5px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);min-width:0;flex:1}
+.form{display:flex;gap:8px;padding:16px}.li{display:flex;justify-content:space-between;gap:10px;padding:12px 18px;border-bottom:1px solid var(--line)}.li:last-child{border:0}
+.day{font-weight:800;margin:18px 0 8px}svg{display:block;width:100%;height:auto}
+.center{max-width:460px;margin:8vh auto 0;text-align:center}
+</style></head><body><main id="app"></main>
+<script>
+var NAMES=["Gleb","Olga","Oleksandr","Arina"],SLOTS=[["0700","07:00","Утро"],["1200","12:00","День"],["1600","16:00","После обеда"],["2000","20:00","Вечер"]];
+var PAW='<svg width="30" height="30" viewBox="0 0 24 24" fill="#d7ef8a"><ellipse cx="6" cy="10" rx="2.2" ry="3"/><ellipse cx="10.5" cy="5.8" rx="2.2" ry="3"/><ellipse cx="16" cy="6.5" rx="2.2" ry="3"/><ellipse cx="19.5" cy="11.5" rx="2" ry="2.8"/><path d="M12 11c-3 0-6 3.5-6 6 0 2 1.7 2.6 3 2.3 1-.3 2-.7 3-.7s2 .4 3 .7c1.3.3 3-.3 3-2.3 0-2.5-3-6-6-6z"/></svg>';
+var S={feeds:[],weights:[],walks:[],members:[],loaded:{},tab:"today"},db=null,err=false,myId=null;
+var $=function(i){return document.getElementById(i)};
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function p2(n){return(n<10?"0":"")+n}function dstr(d){return d.getFullYear()+"-"+p2(d.getMonth()+1)+"-"+p2(d.getDate())}function tstr(d){return p2(d.getHours())+":"+p2(d.getMinutes())}
+function nice(s){var a=s.split("-");return new Date(a[0],a[1]-1,a[2]).toLocaleDateString("ru-RU",{day:"numeric",month:"long",weekday:"short"})}
+function me(){return S.members.filter(function(m){return m.uid===myId})[0]}
+function api(m,p,b){return fetch(DB+"/"+p+".json",{method:m,headers:{"Content-Type":"application/json"},body:b?JSON.stringify(b):undefined}).then(function(r){if(!r.ok)throw 0;return r.json()})}
+function run(fn){if(!me())return;fn().then(load).catch(function(){err=true;render()})}
+function feed(slot){var n=new Date(),t=dstr(n),d={date:t,slot:slot,time:tstr(n),who:me().name,ts:n.getTime()};run(function(){return slot==="custom"?api("POST","feeds",d):api("PUT","feeds/f_"+t+"_"+slot,d)})}
+function walk(){var n=new Date();run(function(){return api("POST","walks",{date:dstr(n),time:tstr(n),who:me().name,ts:n.getTime()})})}
+function del(c,id){run(function(){return api("DELETE",c+"/"+id)})}
+function join(name){api("PUT","members/"+name,{name:name,uid:myId,ts:Date.now()}).then(load).catch(function(){err=true;render()})}
+function saveW(){var kg=parseFloat($("kg").value.replace(",",".")),d=$("wd").value;if(!(kg>0)||!d)return;run(function(){return api("PUT","weights/w_"+d,{date:d,kg:kg,who:me().name,ts:Date.now()})})}
+function head(){var m=me();return'<div class="top"><div class="logo"><i>'+PAW.replace('width="30" height="30"','width="24" height="24"')+'</i><b>terry<span>.</span></b></div>'+(m?'<div class="chip">Вы: '+esc(m.name)+'</div>':'')+'</div>'}
+function vGate(){
+  if(!DB)return head()+'<div class="center"><h1>Осталось подключить базу</h1><p class="sm">Впишите адрес Firebase в файл config.js (см. README).</p></div>';if(err||!db)return head()+'<div class="center"><h1>Нет связи с дневником</h1><p class="sm">Проверьте интернет и обновите страницу.</p><button class="btn" onclick="location.reload()">Обновить</button></div>';
+  if(!S.loaded.members)return head()+'<div class="center"><p class="sm">Загружаем…</p></div>';
+  var taken=function(n){return S.members.some(function(m){return m.name===n})};
+  return head()+'<div class="center"><div class="eyebrow">Один хвост. Четыре человека.</div><h1>Добро пожаловать в семью Terry</h1><p class="sm">Выберите себя один раз. После этого вы сможете отмечать кормления, прогулки и вес, а все остальные это увидят.</p><div class="card"><div class="names">'+
+    NAMES.map(function(n){return'<button data-join="'+n+'"'+(taken(n)?' disabled':'')+'><span>'+n+'</span><span class="sm">'+(taken(n)?'уже занято':'это я →')+'</span></button>'}).join("")+'</div></div></div>';
+}
+function today(){return dstr(new Date())}
+function vToday(){
+  var t=today(),tf=S.feeds.filter(function(f){return f.date===t}),tw=S.walks.filter(function(f){return f.date===t}),ws=S.weights.slice().sort(function(a,b){return a.date<b.date?1:-1}),done=0;
+  var rows=SLOTS.map(function(s){var f=tf.filter(function(x){return x.slot===s[0]})[0];if(f)done++;
+    return'<div class="row'+(f?" done":"")+'"><div><div class="time">'+s[1]+' <span class="sm" style="font-weight:600">'+s[2]+'</span></div><div class="sm">'+(f?'✓ Покормил(а) '+esc(f.who)+' в '+esc(f.time):'Ещё не кормили')+'</div></div>'+(f?'<button class="btn link" data-del="feeds|'+f.id+'">Отменить</button>':'<button class="btn" data-feed="'+s[0]+'">Покормил(а)</button>')+'</div>'}).join("");
+  var extra=tf.filter(function(x){return x.slot==="custom"}).sort(function(a,b){return a.ts-b.ts}).map(function(f){return'<div class="row done"><div><div class="time">'+esc(f.time)+'</div><div class="sm">✓ '+esc(f.who)+' · другое время</div></div><button class="btn link" data-del="feeds|'+f.id+'">Отменить</button></div>'}).join("");
+  var last=S.feeds.slice().sort(function(a,b){return b.ts-a.ts})[0];
+  return'<div class="grid two"><div><div class="eyebrow">Сегодня</div><h2>'+new Date().toLocaleDateString("ru-RU",{day:"numeric",month:"long"})+' <span class="tag" style="margin-left:6px">Кормили: '+(done+extra.split('class="row done"').length-1)+'</span></h2><p class="sm">Перед кормлением загляните сюда, чтобы не покормить Terry дважды.</p>'+
+    '<div class="card">'+rows+extra+'<div class="row"><button class="btn soft" style="width:100%" data-feed="custom">+ Покормили в другое время (сейчас)</button></div></div>'+
+    '<h2 style="margin-top:22px">Прогулки</h2><div class="card"><div class="row"><div><div class="time">'+tw.length+'</div><div class="sm">'+(tw.length?'Последняя в '+esc(tw[tw.length-1].time)+', '+esc(tw[tw.length-1].who):'Сегодня ещё не гуляли')+'</div></div><button class="btn" data-walk="1">Погуляли</button></div></div></div>'+
+    '<div class="card hero"><span class="tag" style="align-self:flex-start">Наш любимый хвост</span><div class="paw">'+PAW.replace('width="30" height="30"','width="44" height="44"')+'</div><h2>Terry</h2><hr><div class="l"><span>Последний вес</span><b>'+(ws[0]?esc(ws[0].kg)+' кг':'— кг')+'</b></div><div class="l"><span>Последнее кормление</span><b>'+(last?esc(last.time)+', '+esc(last.who):'—')+'</b></div></div></div>';
+}
+function chart(ws){if(ws.length<2)return"";var a=ws.slice().sort(function(x,y){return x.date<y.date?-1:1}),W=480,H=150,pd=26,v=a.map(function(x){return x.kg}),mn=Math.min.apply(0,v),mx=Math.max.apply(0,v);if(mx===mn){mx+=1;mn-=1}
+  var pts=a.map(function(x,i){return[pd+i*(W-2*pd)/(a.length-1),H-pd-(x.kg-mn)/(mx-mn)*(H-2*pd)]});
+  return'<div class="card" style="padding:12px;margin-bottom:16px"><svg viewBox="0 0 '+W+' '+H+'"><polyline fill="none" stroke="var(--g)" stroke-width="3" stroke-linejoin="round" points="'+pts.map(function(p){return p.join(",")}).join(" ")+'"/>'+pts.map(function(p){return'<circle cx="'+p[0]+'" cy="'+p[1]+'" r="5" fill="#7fa33a"/>'}).join("")+'<text x="2" y="12" font-size="12" fill="var(--mute)">'+mx.toFixed(1)+'</text><text x="2" y="'+(H-4)+'" font-size="12" fill="var(--mute)">'+mn.toFixed(1)+'</text></svg></div>'}
+function vWeight(){var ws=S.weights.slice().sort(function(a,b){return a.date<b.date?1:-1});
+  return'<h2>Вес Terry</h2><p class="sm">Взвесили Terry? Запишите дату и вес в кг.</p><div class="card" style="margin-bottom:16px"><div class="form"><input id="wd" type="date" value="'+today()+'"><input id="kg" type="text" inputmode="decimal" placeholder="кг"><button class="btn" data-savew="1">Записать</button></div></div>'+chart(ws)+
+  '<div class="card">'+(ws.length?ws.map(function(w){return'<div class="li"><span><b>'+esc(w.kg)+' кг</b> · '+esc(nice(w.date))+'</span><span class="sm">'+esc(w.who)+' <button class="btn link" data-del="weights|'+w.id+'">×</button></span></div>'}).join(""):'<div class="li sm">Пока нет записей</div>')+'</div>'}
+function vHist(){var by={},h="";S.feeds.forEach(function(f){(by[f.date]=by[f.date]||[]).push(f)});
+  Object.keys(by).sort().reverse().slice(0,30).forEach(function(d){h+='<div class="day">'+esc(nice(d))+'</div><div class="card">'+by[d].sort(function(a,b){return a.time<b.time?-1:1}).map(function(f){return'<div class="li"><b>'+esc(f.time)+'</b><span class="sm">Кормил(а) '+esc(f.who)+'</span></div>'}).join("")+'</div>'});
+  return'<h2>История кормлений</h2>'+(h||'<p class="sm">Появится после первого кормления.</p>')}
+function vFam(){var m=me();return'<h2>Семья</h2><p class="sm">Кто уже вошёл в дневник.</p><div class="card">'+NAMES.map(function(n){var x=S.members.filter(function(k){return k.name===n})[0];return'<div class="li"><b>'+n+(m&&m.name===n?' (вы)':'')+'</b><span class="sm">'+(x?'✓ в семье':'ещё не вошёл(а)')+'</span></div>'}).join("")+'</div><p style="margin-top:16px"><button class="btn soft" data-leave="1">Это не я — выбрать другое имя</button></p>'}
+function render(){var a=document.activeElement;if(a&&a.tagName==="INPUT")return;var m=me();
+  if(!db||err||!m){$("app").innerHTML=vGate();return}
+  var tabs=[["today","Сегодня"],["weight","Вес"],["hist","История"],["fam","Семья"]];
+  $("app").innerHTML=head()+'<h1>Забота о Terry</h1><div class="tabs">'+tabs.map(function(t){return'<button data-tab="'+t[0]+'"'+(t[0]===S.tab?' class="on"':'')+'>'+t[1]+'</button>'}).join("")+'</div>'+({today:vToday,weight:vWeight,hist:vHist,fam:vFam}[S.tab])()}
+document.addEventListener("click",function(e){var t=e.target.closest("button");if(!t)return;var d=t.dataset;
+  if(d.tab){S.tab=d.tab;render()}else if(d.join)join(d.join);else if(d.feed)feed(d.feed);else if(d.walk)walk();else if(d.savew)saveW();
+  else if(d.del){var p=d.del.split("|");del(p[0],p[1])}else if(d.leave){var m=me();if(m)del("members",m.id)}});
+var DB=(window.TERRY_DB_URL||"").replace(/\/$/,"");
+function arr(o){o=o||{};return Object.keys(o).map(function(k){var x=o[k];x.id=k;return x})}
+function load(){return api("GET","").then(function(d){d=d||{};S.feeds=arr(d.feeds);S.weights=arr(d.weights);S.walks=arr(d.walks);S.members=arr(d.members);S.loaded.members=1;err=false;render()}).catch(function(){err=true;render()})}
+try{myId=localStorage.getItem("terry-dev");if(!myId){myId="d"+Math.random().toString(36).slice(2)+Date.now();localStorage.setItem("terry-dev",myId)}}catch(e){myId="tmp"+Math.random()}
+db=DB;render();
+if(DB){load();setInterval(function(){if(!document.hidden)load()},5000)}
+</script></body></html>
