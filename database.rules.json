@@ -1,0 +1,58 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "users": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid"
+      }
+    },
+    "invites": {
+      "$ek": {
+        ".read": "auth != null && auth.token.email_verified === true && $ek === auth.token.email.toLowerCase().replace('.', ',')",
+        "$fid": {
+          ".write": "auth != null && (root.child('families').child($fid).child('members').child(auth.uid).exists() || (auth.token.email_verified === true && $ek === auth.token.email.toLowerCase().replace('.', ',') && !newData.exists()))"
+        }
+      }
+    },
+    "families": {
+      "$fid": {
+        ".read": "auth != null && root.child('families').child($fid).child('members').child(auth.uid).exists()",
+        ".write": "auth != null && (root.child('families').child($fid).child('members').child(auth.uid).exists() || !root.child('families').child($fid).exists())",
+        "members": {
+          "$uid": {
+            ".write": "auth != null && auth.uid === $uid && auth.token.email_verified === true && root.child('invites').child(auth.token.email.toLowerCase().replace('.', ',')).child($fid).exists()"
+          }
+        }
+      }
+    },
+    "feeds": {
+      ".read": "auth != null && auth.token.email === 'glebkrupnik@gmail.com' && auth.token.email_verified === true"
+    },
+    "weights": {
+      ".read": "auth != null && auth.token.email === 'glebkrupnik@gmail.com' && auth.token.email_verified === true"
+    },
+    "walks": {
+      ".read": "auth != null && auth.token.email === 'glebkrupnik@gmail.com' && auth.token.email_verified === true"
+    },
+    "shop": {
+      ".read": "auth != null && auth.token.email === 'glebkrupnik@gmail.com' && auth.token.email_verified === true"
+    },
+    "tasks": {
+      ".read": "auth != null && auth.token.email === 'glebkrupnik@gmail.com' && auth.token.email_verified === true"
+    },
+    "capsules": {
+      ".read": "auth != null && auth.token.email === 'glebkrupnik@gmail.com' && auth.token.email_verified === true"
+    },
+    "capsulePhotos": {
+      ".read": "auth != null && auth.token.email === 'glebkrupnik@gmail.com' && auth.token.email_verified === true"
+    },
+    "qa": {
+      ".read": "auth != null && auth.token.email === 'glebkrupnik@gmail.com' && auth.token.email_verified === true"
+    },
+    "members": {
+      ".read": "auth != null && auth.token.email === 'glebkrupnik@gmail.com' && auth.token.email_verified === true"
+    }
+  }
+}
